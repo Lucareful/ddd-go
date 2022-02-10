@@ -1,13 +1,13 @@
-package services
+package order
 
 import (
 	"context"
 	"github.com/google/uuid"
 	"github.com/luenci/ddd-go/domain/customer"
+	storeCustomer "github.com/luenci/ddd-go/domain/customer/store/menory"
+	"github.com/luenci/ddd-go/domain/customer/store/mongo"
 	"github.com/luenci/ddd-go/domain/product"
-	storeCustomer "github.com/luenci/ddd-go/store/customer"
-	"github.com/luenci/ddd-go/store/mongo"
-	storeProduct "github.com/luenci/ddd-go/store/product"
+	storeProduct "github.com/luenci/ddd-go/domain/product/store/memory"
 	"log"
 )
 
@@ -44,6 +44,21 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	log.Printf("Customer: %s has ordered %d products", c.GetID(), len(products))
 
 	return price, nil
+}
+
+// AddCustomer will add a new customer and return the customerID
+func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
+	c, err := customer.NewCustomer(name)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	// Add to Repo
+	err = o.customers.Add(c)
+	if err != nil {
+		return uuid.Nil, err
+	}
+
+	return c.GetID(), nil
 }
 
 // NewOrderService takes a variable amount of OrderConfiguration functions and returns a new OrderService
