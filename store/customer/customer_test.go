@@ -2,7 +2,6 @@ package customer
 
 import (
 	"github.com/google/uuid"
-	"github.com/luenci/ddd-go/aggregate"
 	"github.com/luenci/ddd-go/domain/customer"
 	"testing"
 )
@@ -22,10 +21,10 @@ func TestMemoryRepository_Add(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			repo := MemoryRepository{
-				customers: map[uuid.UUID]aggregate.Customer{},
+				customers: map[uuid.UUID]customer.Customer{},
 			}
 
-			cust, err := aggregate.NewCustomer(tt.cust)
+			cust, err := customer.NewCustomer(tt.cust)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -48,7 +47,7 @@ func TestMemoryRepository_Add(t *testing.T) {
 
 func TestMemoryRepository_Get(t *testing.T) {
 	// Create a fake customer to add to repository
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,7 +55,7 @@ func TestMemoryRepository_Get(t *testing.T) {
 	// Create the repo to use, and add some test Data to it for testing
 	// Skip Factory for this
 	repo := MemoryRepository{
-		customers: map[uuid.UUID]aggregate.Customer{
+		customers: map[uuid.UUID]customer.Customer{
 			id: cust,
 		},
 	}
