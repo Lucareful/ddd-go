@@ -1,4 +1,4 @@
-package tavern
+package entity
 
 import (
 	"github.com/google/uuid"
