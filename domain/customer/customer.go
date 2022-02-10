@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"github.com/luenci/ddd-go/entity"
-	"github.com/luenci/ddd-go/valueobject"
 )
 
 var (
@@ -20,7 +19,7 @@ type Customer struct {
 	// a customer can hold many products
 	products []*entity.Item
 	// a customer can perform many transactions
-	transactions []valueobject.Transaction
+	transactions []entity.Transaction
 }
 
 // GetID returns the customers root entity ID
@@ -66,6 +65,6 @@ func NewCustomer(name string) (Customer, error) {
 	return Customer{
 		person:       person,
 		products:     make([]*entity.Item, 0),
-		transactions: make([]valueobject.Transaction, 0),
+		transactions: make([]entity.Transaction, 0),
 	}, nil
 }
