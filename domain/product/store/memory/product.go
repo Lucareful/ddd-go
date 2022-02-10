@@ -1,4 +1,4 @@
-package product
+package memory
 
 import (
 	"github.com/google/uuid"

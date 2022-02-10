@@ -1,5 +1,5 @@
 // Package entity holds all the entities that are shared across all subdomains.
-package entity
+package tavern
 
 import (
 	"github.com/google/uuid"
